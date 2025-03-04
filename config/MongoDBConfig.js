@@ -1,8 +1,18 @@
-var mongoose = require("mongoose");
-require('dotenv').config()
-const DBURL = process.env.MONGO_URI;
-mongoose.connect(DBURL).then((conn)=> {console.log("MongoDb is connected from Config File");console.log(`Connected to DB: ${mongoose.connection.name}`);
-;})
-.catch((err)=> {console.log("connection error",err)})
+const mongoose = require('mongoose');
 
-module.exports = mongoose;
+const uri = "mongodb+srv://devsoft687:dev_ABC@cluster1.lfl6u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
+
+const mongoDBConn = async () => {
+  try {
+    await mongoose.connect(uri, {
+      serverApi: { version: '1', strict: true, deprecationErrors: true }
+    });
+
+    console.log('MongoDB connected successfully');
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    process.exit(1); // Exit process if connection fails
+  }
+};
+
+module.exports = mongoDBConn;
