@@ -16,9 +16,9 @@ app.use('/api/v1', router);
 
 // Connect to MongoDB before starting the server
 mongoDBConn().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is running on port: ${PORT}`);
+    console.log("MongoDB Connected Successfully");
+  }).catch(err => {
+    console.error('Failed to connect to MongoDB:', err);
   });
-}).catch(err => {
-  console.error('Failed to start server due to DB connection error:', err);
-});
+
+module.exports = app;
